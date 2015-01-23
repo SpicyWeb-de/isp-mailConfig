@@ -1,0 +1,9 @@
+RewriteEngine On
+
+RewriteCond %{HTTP_HOST}   !^autoconfig\.spicyweb\.de [NC]
+RewriteCond %{HTTP_HOST}   !^$
+RewriteRule ^/(.*)         http://autoconfig.spicyweb.de:%{SERVER_PORT}/$1 [L,R]
+
+
+RewriteRule !^index\.php$ - [C]
+RewriteRule ^(.*)$ /index.php?file=$1 [QSA,L]
