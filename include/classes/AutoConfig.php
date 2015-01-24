@@ -9,14 +9,10 @@ class AutoConfig{
 	protected $host = false;
 	
 	public static function get($requested_file = ''){
-		try{
-			if(!array_key_exists($requested_file, self::$_files))
-                $requested_file = self::$_default;
-			$instance = new self::$_files[$requested_file]();
-			return $instance;
-		}catch(Exception $ex){
-			throw new Exception($requested_file.' is not supported.');
-		}
+        if(!array_key_exists($requested_file, self::$_files))
+            $requested_file = self::$_default;
+        $instance = new self::$_files[$requested_file]();
+        return $instance;
 	}
 	
 	public static function addFile($file, $class){

@@ -85,7 +85,7 @@ Content:
 
 * Enter your ISPConfig panel at **System -> Remote Users** and create a new remote user
 * Privileges:
-  * E-Mail Domain
+  * Server Functions
   * E-Mail User
 * Clone the repository into the discover-webfolder
 * Copy the shipped config file
