@@ -1,6 +1,8 @@
 # ISPConfig Server Addons
 ## Autodiscover (Outlook) + Autoconfig (Thunderbird)
 
+**NOTE:** This is a mirror for https://spicyhub.de/spicy-web/isp-mailconfig
+
 ### Intro
 
 Using this tool you can offer mailaccount autodiscover in Thunderbird and Outlook to all your customers in a multiserver environment.
