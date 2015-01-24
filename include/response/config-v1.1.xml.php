@@ -3,8 +3,8 @@
 <clientConfig version="1.1">
     <emailProvider id="<?php echo substr($this->user['email'], strpos($this->user['email'], '@')+1) ?>">
         <domain><?php echo substr($this->user['email'], strpos($this->user['email'], '@')+1) ?></domain>
-        <displayName>SpicyWeb Mail Service</displayName>
-        <displayShortName>SpicyMail</displayShortName>
+        <displayName><?php echo SERVICE_NAME ?></displayName>
+        <displayShortName><?php echo SERVICE_SHORT ?></displayShortName>
         <incomingServer type="pop3">
             <hostname><?php echo $this->host['hostname'] ?></hostname>
             <port>995</port>
