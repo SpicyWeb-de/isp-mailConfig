@@ -1,7 +1,7 @@
 <?php
 class ConfigOutlook extends AutoConfig{
 	
-	protected $response_template = 'outlook.xml.php';
+	protected $response_template = 'autodiscover.xml.php';
 	protected $response_type = 'text/xml';
 	
 	public function __construct(){

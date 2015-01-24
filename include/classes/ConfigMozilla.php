@@ -5,7 +5,7 @@ class ConfigMozilla extends AutoConfig{
 	protected $response_type = 'text/xml';
 	
 	public function __construct(){
-		$this->email = $_GET['emailaddress'];
+		$this->email = urldecode($_GET['emailaddress']);
 		$this->loadData();
 	}
 	
