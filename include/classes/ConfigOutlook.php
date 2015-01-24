@@ -5,13 +5,10 @@ class ConfigOutlook extends AutoConfig{
 	protected $response_type = 'text/xml';
 	
 	public function __construct(){
-		//Lese den Body der XML-Anfrage von Outlook aus
-		$xmlObj = simplexml_load_string(file_get_contents('php://input'));
-		//Suche in der XML-Antwort die E-Mailadresse raus
-		$arraydata = (array) $xmlObj;
-		$arraydata = (array) $arraydata["Request"];
-		$this->email = $arraydata["EMailAddress"];
-		$this->loadData();
+        $data = file_get_contents("php://input");
+        preg_match("/\<EMailAddress\>(.*?)\<\/EMailAddress\>/", $data, $matches);
+        $this->email = $matches[1];
+        $this->loadData();
 	}
 	
 }
