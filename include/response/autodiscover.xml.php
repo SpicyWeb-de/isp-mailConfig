@@ -7,7 +7,7 @@
             <Action>settings</Action>
             <Protocol>
                 <Type>IMAP</Type>
-                <Server><?php echo $this->host['hostname'] ?></Server>
+                <Server><?php echo SERVER_FQDN ?></Server>
                 <Port>993</Port>
                 <DomainRequired>off</DomainRequired>
                 <LoginName><?php echo $this->user['login'] ?></LoginName>
@@ -17,7 +17,7 @@
             </Protocol>
             <Protocol>
                 <Type>POP3</Type>
-                <Server><?php echo $this->host['hostname'] ?></Server>
+                <Server><?php echo SERVER_FQDN ?></Server>
                 <Port>995</Port>
                 <DomainRequired>off</DomainRequired>
                 <LoginName><?php echo $this->user['login'] ?></LoginName>
@@ -27,7 +27,7 @@
             </Protocol>
             <Protocol>
                 <Type>SMTP</Type>
-                <Server><?php echo $this->host['hostname'] ?></Server>
+                <Server><?php echo SERVER_FQDN ?></Server>
                 <Port>25</Port>
                 <DomainRequired>off</DomainRequired>
                 <LoginName><?php echo $this->user['login'] ?></LoginName>
