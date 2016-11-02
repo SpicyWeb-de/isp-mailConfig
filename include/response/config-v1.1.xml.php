@@ -6,7 +6,7 @@
         <displayName><?php echo SERVICE_NAME ?></displayName>
         <displayShortName><?php echo SERVICE_SHORT ?></displayShortName>
         <incomingServer type="pop3">
-            <hostname><?php echo $this->host['hostname'] ?></hostname>
+            <hostname><?php echo SERVER_FQDN ?></hostname>
             <port>995</port>
             <socketType>SSL</socketType>
             <authentication>password-cleartext</authentication>
@@ -18,14 +18,14 @@
             </pop3>
         </incomingServer>
         <incomingServer type="imap">
-            <hostname><?php echo $this->host['hostname'] ?></hostname>
+            <hostname><?php echo SERVER_FQDN ?></hostname>
             <port>993</port>
             <socketType>SSL</socketType>
             <authentication>password-cleartext</authentication>
             <username><?php echo $this->user['login'] ?></username>
         </incomingServer>
         <outgoingServer type="smtp">
-            <hostname><?php echo $this->host['hostname'] ?></hostname>
+            <hostname><?php echo SERVER_FQDN ?></hostname>
             <port>587</port>
             <socketType>STARTTLS</socketType>
             <authentication>password-cleartext</authentication>
