@@ -3,6 +3,8 @@
 
 **NOTE:** This is a mirror for https://spicyhub.de/spicy-web/isp-mailconfig
 
+02/11/2016 Djerk Geurts - Changed to make server configurable. Multiserver configurations aren't served well by pointing users at a single server. config.php now allows the use of a detected server hostname or a configured one.
+
 ### Intro
 
 Using this tool you can offer mailaccount autodiscover in Thunderbird and Outlook to all your customers in a multiserver environment.
@@ -45,8 +47,6 @@ Content:
 	  RewriteRule ^(.*)$ https://discover.my-service.com$1 [L,R]
 	</VirtualHost>
 	
-	
-	
 	<VirtualHost *:443>
 	  ServerName discover.my-service.com
 	  ServerAlias autoconfig.my-service.com
@@ -64,7 +64,6 @@ Content:
 	      Allow from all
 	    </Directory>
 	  </IfModule>
-	
 	
 	  <IfModule mod_php5.c>
 	    DocumentRoot /var/www/discover
@@ -86,9 +85,9 @@ Content:
 ### Install the tool
 
 * Enter your ISPConfig panel at **System -> Remote Users** and create a new remote user
-* Privileges:
-  * Server Functions
-  * E-Mail User
+* Privileges (ISPConfig 3.1 item names):
+  * Server functions
+  * Mail user functions
 * Clone the repository into the discover-webfolder
 * Copy the shipped config file
 * Open it in your favorite editor and enter ISPC-URLs and Remote User credentials as well as the name of your service
