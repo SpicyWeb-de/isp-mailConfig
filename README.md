@@ -185,4 +185,4 @@ It takes some time but should also give a positive result for an existing Mail A
 ### Credits
 * Based on [the work](https://github.com/foe-services/ispc-resources/tree/master/guides/autodiscover) of [Christian Foellmann (cfoellmann)](https://github.com/cfoellmann)
 * Rewritten by [Michael Fürmann](https://spicyhub.de/u/quest) from [Spicy Web](https://spicyweb.de)
-* Adapted for ISPConfig 3.1, Apache 2.4 and server name setting added by [Djerk Geurts](https://djerk.nl/ from [Maizymoo](https://maizymoo.com)
+* Adapted for ISPConfig 3.1, Apache 2.4 and server name setting added by [Djerk Geurts] (https://djerk.nl/ from [Maizymoo](https://maizymoo.com))
