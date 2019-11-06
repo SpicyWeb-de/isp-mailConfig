@@ -8,7 +8,7 @@ class ConfigMozilla extends AutoConfig{
 		$this->email = urldecode($_GET['emailaddress']);
 		try {
 		    $this->loadData();
-		} catch (Exception $e) {
+		} catch (UnkownUser $e) {
 		  /*
 		  this actually works for e.g. Gnome Evolution, they are
 		  more privacy concerned and are sending

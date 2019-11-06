@@ -10,11 +10,10 @@ class ConfigOutlook extends AutoConfig{
         $this->email = $matches[1];
 	try {
             $this->loadData();
-	    } catch (Exception $e) {
-		    $this->host = ["hostname" => "mail.bnbhosting.de"];
-		    $this->user = ["login" => $this->email];
-	      }
-
+	} catch (UnkownUser $e) {
+	    $this->host = ["hostname" => "mail.bnbhosting.de"];
+	    $this->user = ["login" => $this->email];
+	  }
 	}
 
 }
