@@ -1,6 +1,12 @@
 <?php
 include('config.php');
 
+function global_exception_handler($exception) {
+        error_log("Exception unhandled:" . $exception->getMessage());
+}
+
+set_exception_handler('global_exception_handler');
+
 function autoload($name){
     $name = str_replace('\\', '/', $name);
     $class_path = dirname(__FILE__).'/include/classes/';
