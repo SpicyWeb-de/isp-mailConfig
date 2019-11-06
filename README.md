@@ -5,6 +5,8 @@
 
 02/11/2016 Djerk Geurts - Changed to make server configurable. Multiserver configurations aren't served well by pointing users at a single server. config.php now allows the use of a detected server hostname or a configured one. Plus general updates for ISPConfig 3.1.
 
+06/11/2019 Conrad Sachweh - Handle Gnome Evolution and return static config for invalid inputs.
+
 ### Intro
 
 Using this tool you can offer mailaccount autodiscover in Thunderbird and Outlook to all your customers in a multiserver environment.
