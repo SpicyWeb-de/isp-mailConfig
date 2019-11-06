@@ -1,8 +1,8 @@
 RewriteEngine On
 
-RewriteCond %{HTTP_HOST}   !^autoconfig\.spicyweb\.de [NC]
+RewriteCond %{HTTP_HOST}   !^autoconfig\.bnbhosting\.de [NC]
 RewriteCond %{HTTP_HOST}   !^$
-RewriteRule ^/(.*)         https://autoconfig.spicyweb.de:%{SERVER_PORT}/$1 [L,R]
+RewriteRule ^/(.*)         https://autoconfig.bnbhosting.de:%{SERVER_PORT}/$1 [L,R]
 # Use SSL for autoconfig.
 
 RewriteRule !^index\.php$ - [C]
