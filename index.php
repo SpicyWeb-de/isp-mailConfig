@@ -2,7 +2,8 @@
 include('config.php');
 
 function global_exception_handler($exception) {
-        die("Exception unhandled:" . $exception->getMessage());
+        error_log("Exception unhandled:" . $exception->getMessage());
+	die();
 }
 
 set_exception_handler('global_exception_handler');
