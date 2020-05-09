@@ -1,4 +1,5 @@
 <?php
+class UnkownUser extends Exception {};
 class AutoConfig{
 	
 	protected static $_files = array();
@@ -36,7 +37,7 @@ class AutoConfig{
 					$this->user = $mail_user[0];
 				}
 				else
-					throw new Exception("Unknown Account");
+					throw new UnkownUser("Unknown Account");
 			}
 	
 			//* Logout
