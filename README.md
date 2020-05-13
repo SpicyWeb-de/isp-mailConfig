@@ -1,11 +1,8 @@
 # ISPConfig Server Addons
 ## Autodiscover (Outlook) + Autoconfig (Thunderbird)
 
-**NOTE:** This is a mirror for https://spicyhub.de/spicy-web/isp-mailconfig
-
-02/11/2016 Djerk Geurts - Changed to make server configurable. Multiserver configurations aren't served well by pointing users at a single server. config.php now allows the use of a detected server hostname or a configured one. Plus general updates for ISPConfig 3.1.
-
-06/11/2019 Conrad Sachweh - Handle Gnome Evolution and return static config for invalid inputs.
+**NOTE:** This is no longer a mirror of https://spicyhub.de/spicy-web/isp-mailconfig.
+I am finally moving my OSS projects to github. So please use issues and PRs on github to post bug reports or contribute to the sourcecode.
 
 ### Intro
 
@@ -19,6 +16,9 @@ Using this tool you can offer mailaccount autodiscover in Thunderbird and Outloo
 
 ### Requirements
 
+php-soap is required for API-Requests.  
+php7.3-soap for example.
+
 Outlook requires access to a SSL secured page with a trusted certificate. 
 
 The example configuration uses the ISPConfig interface SSL certificate, for this to work it will have to be a valid publicly signed wildcard certificate. For example a StartSSL signed Level 2 (Personal Identity) certificate.
@@ -31,12 +31,13 @@ That should be enough for Outlook to work without error messages and warnings.
 
 The discover plugin is not realized as Website managed by ISPConfig. This setup guide explains the setup of the vHost from scratch. So you can install it on any of your servers running a webserver.
 
+#### Example for Apache2
 Example configuration for Apache2 (Ubuntu 16.04)
 
 * Add a new vHost Config file: `vi /etc/apache2/sites-available/discover.my-service.com.conf`
 
 Content:
-
+```
 	<VirtualHost *:80>
 	  ServerName discover.my-service.com
 	  ServerAlias autoconfig.my-service.com
@@ -81,7 +82,7 @@ Content:
 	  <IfModule mod_php5.c>
 	    DocumentRoot /var/www/discover
 	    AddType application/x-httpd-php .php
-	    <Directory /var/www/mail_autoconfig>
+	    <Directory /var/www/discover>
 	      Require all granted
 	    </Directory>
 	  </IfModule>
@@ -97,22 +98,54 @@ Content:
 	  # Always wise to include the cert chain, change as needed and uncomment
 	  #SSLCertificateChainFile /usr/local/ispconfig/interface/ssl/startssl.chain.class2.server.crt
 	</VirtualHost>
+```
 
+#### Example for nginx
+
+Add the following locations to a server configuration of your choice:  
+(asumtion: discover.my-service.com)
+
+```
+  location ~* ^(/mail/config-v1.1.xml|/autodiscover) {
+    index     index.html index.htm index.php;
+    rewrite ^(.*)$ /index.php?file=$1 last;
+  }
+  location /index.php {
+    root          /var/www/discover;
+    include       /etc/nginx/fastcgi_params;
+
+    fastcgi_pass  127.0.0.1:9000;
+    fastcgi_index index.php;
+    fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    access_log /var/log/nginx/automail_access.log;
+    error_log /var/log/nginx/automail_error.log;
+    fastcgi_buffer_size 128k;
+    fastcgi_buffers 256 4k;
+    fastcgi_busy_buffers_size 256k;
+    fastcgi_intercept_errors on;
+    fastcgi_temp_file_write_size 256k;
+  }
+
+```
 
 ### Install the tool
 
-* Enter your ISPConfig panel at **System -> Remote Users** and create a new remote user
-* Privileges (ISPConfig 3.1 item names):
+* Enter your ISPConfig panel at **System -> Remote Users** and create a new remote user with these privileges (ISPConfig 3.1 item names):
   * Server functions
   * Mail user functions
+* If your automail host is different to your ISPConfig Multiserver master, allow the remote user access from this remote host address
 * Clone the repository into the discover-webfolder
+* If using Apache2, edit .htaccess and replace SERVER.TLD with the FQDN of your machine
 * Copy the shipped config file
-* Open it in your favorite editor and enter ISPC-URLs and Remote User credentials as well as the name of your service
+* Open it in your favorite editor
+  * Enter ISPC-URLs and Remote User credentials as well as the name of your service
+  * (optional) Enter a fallback server FQDN to use if the user couldn't be found in ISPConfig (defaults to $_SERVER['SERVER_NAME'])
+  * (optional) Enter domain names of SMTP/IMAP/POP servers to fully override autodiscovery via ISPConfig API
 
 Shell Commands:
  
     cd /var/www
-    git clone https://github.com/dmgeurts/isp-mailconfig.git discover
+    git clone https://github.com/SpicyWeb-de/isp-mailConfig.git discover
 	chown -R ispapps:ispapps discover
     cd discover
     cp config.dist.php config.php
@@ -135,7 +168,7 @@ Add the following DNS records for zone my-mail.com to enable autoconfig:
 
 This tool works only for real existing mail accounts as it queries the ISPC Remote API for them.
 
-While testing make shure to use adresses, that exist on your server.
+While testing make sure to use addresses, that exist on your server.
 
 #### Mozilla / Thunderbird
 Enter [https://discover.my-service.com/mail/config-v1.1.xml?emailaddress=user%40my-mail.com](https://discover.my-service.com/mail/config-v1.1.xml?emailaddress=user%40my-mail.com) in your browser.
@@ -183,6 +216,13 @@ As Outlook posts an XML-File with user data to the server you can't just call it
 You can use Microsofts Remote Connectivity Analyzer at [https://testconnectivity.microsoft.com/ ](https://testconnectivity.microsoft.com/) to check if the **Outlook-AutoDiscovery** is working.
 
 It takes some time but should also give a positive result for an existing Mail Account on my-mail.com.
+
+### Changes
+
+02/11/2016 Djerk Geurts - Changed to make server configurable. Multiserver configurations aren't served well by pointing users at a single server. config.php now allows the use of a detected server hostname or a configured one. Plus general updates for ISPConfig 3.1.
+
+06/11/2019 Conrad Sachweh - Handle Gnome Evolution and return static config for invalid inputs.
+
 
 ### Credits
 * Based on [the work](https://github.com/foe-services/ispc-resources/tree/master/guides/autodiscover) of [Christian Foellmann (cfoellmann)](https://github.com/cfoellmann)
