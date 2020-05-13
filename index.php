@@ -2,8 +2,8 @@
 include('config.php');
 
 function global_exception_handler($exception) {
-        error_log("Exception unhandled:" . $exception->getMessage());
-	die();
+    error_log("Exception unhandled:" . $exception->getMessage());
+    die();
 }
 
 set_exception_handler('global_exception_handler');
@@ -18,9 +18,13 @@ function autoload($name){
 spl_autoload_register('autoload');
 
 AutoConfig::addFile('autodiscover.xml', 'ConfigOutlook');
+AutoConfig::addFile('/autodiscover.xml', 'ConfigOutlook');
+AutoConfig::addFile('autodiscover/autodiscover.xml', 'ConfigOutlook');
+AutoConfig::addFile('/autodiscover/autodiscover.xml', 'ConfigOutlook');
 AutoConfig::addFile('mail/config-v1.1.xml', 'ConfigMozilla');
+AutoConfig::addFile('/mail/config-v1.1.xml', 'ConfigMozilla');
 AutoConfig::setDefault('autodiscover.xml');
 
-$config = AutoConfig::get($_GET['file']);
+$config = AutoConfig::get(strtolower($_GET['file']));
 $config->response();
 ?>
