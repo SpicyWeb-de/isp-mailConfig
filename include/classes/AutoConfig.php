@@ -26,7 +26,9 @@ class AutoConfig{
 
     protected function loadData(){
         $client = new SoapClient(null, array('location' => SOAP_LOCATION,
-            'uri'      => SOAP_URI));
+            'uri'      => SOAP_URI,
+            'stream_context'=> stream_context_create(array('ssl'=> array('verify_peer'=>false,'verify_peer_name'=>false))) // mitigate ssl issues
+             ));
         try {
             //* Login to the remote server
             if($session_id = $client->login(SOAP_USER,SOAP_PASS)) {
